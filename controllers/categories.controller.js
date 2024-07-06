@@ -1,5 +1,5 @@
 import Categories from "../models/Categories.js";
-import { findDocumentById } from "../utils/helper.js";
+
 export const getAllCategories = async (req, res) => {
   try {
     const categories = await Categories.find({});
