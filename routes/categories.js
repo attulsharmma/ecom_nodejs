@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createNewCategory,
+  deleteCategory,
   getAllCategories,
   getSingleCategory,
   updateCategory,
@@ -12,5 +13,6 @@ categoriesRouter.get("/getAllCategories", getAllCategories);
 categoriesRouter.get("/getCategoryById", getSingleCategory);
 categoriesRouter.post("/createCategory", createNewCategory);
 categoriesRouter.put("/updateCategory", updateCategory);
+categoriesRouter.put("/deleteCategory", deleteCategory);
 
 export default categoriesRouter;
