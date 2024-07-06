@@ -1,5 +1,4 @@
 import Categories from "../models/Categories.js";
-
 export const getAllCategories = async (req, res) => {
   try {
     const categories = await Categories.find({});
@@ -9,8 +8,7 @@ export const getAllCategories = async (req, res) => {
 export const getSingleCategory = async (req, res) => {
   try {
     const { _id } = req.query;
-    const category = await findDocumentById(_id, Categories, "Category");
-
+    const category = await Categories.findById(_id);
     if (!category) {
       res.status(404).json({ success: false, message: "Category not found." });
     } else {
