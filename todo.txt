@@ -1,0 +1,79 @@
+1.  Authorization
+  -Register
+  -Login
+  -Forgot Password - WIP
+  -Reset Password
+  -Send Mail on Registration
+  -Send Mail on Login
+  -View and Update Profile
+  -JWT (after Pagination,Filtering and Sorting)
+2.  Products - Complete
+   -Get All
+   -Get Single
+   -Delete
+   -Update
+   -Create
+3.  Categories - Complete
+   -Get All
+   -Get Single
+   -Delete
+   -Update
+   -Create
+4.  Pagination - Complete
+5.  Filter - Single and Multiple - Complete
+6.  Sorting - Complete
+7.  Image/Video Updoad
+8.  Shopping Cart
+9.  Coupons
+10. Checkout
+11. Payment Gateway Integration
+12. Mail on Successfull Order
+13. Orders
+14. Reviews and Ratings:
+    Allow customers to leave reviews and ratings on products.
+    Get all reviews for a product.
+    Get a single review.
+    Delete, update, and create reviews.
+15. Wishlist:
+    Allow customers to add products to their wishlist.
+    Get all wishlist items for a user.
+    Remove items from the wishlist.
+16. Inventory Management:
+    Track product stock levels.
+    Update stock levels upon successful order completion.
+17. User Roles and Permissions:
+    Implement different roles (e.g., admin, customer).
+    Restrict access to certain routes based on roles.
+18. Analytics and Reporting:
+    Track sales data.
+    Generate reports on sales, user activity, etc.
+19. Notifications:
+    Notify users of order status changes.
+    Notify users of important events or promotions.
+Return and Refund Management:
+
+Allow users to request returns and refunds.
+Process returns and issue refunds.
+Address Management:
+
+Allow users to save multiple addresses.
+Get, create, update, and delete addresses.
+Security Enhancements:
+
+Implement rate limiting to prevent abuse.
+Add two-factor authentication (2FA).
+Use HTTPS for secure communication.
+Performance Optimization:
+
+Implement caching for frequently accessed data.
+Optimize database queries.
+Internationalization (i18n):
+
+Support multiple languages for your platform.
+Logging and Monitoring:
+
+Implement logging for error tracking and monitoring application health.
+Use a monitoring tool to keep track of server performance.
+API Documentation:
+
+Provide clear documentation for your API endpoints. Swagger

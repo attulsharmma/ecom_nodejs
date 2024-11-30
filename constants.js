@@ -1,6 +1,7 @@
 export const messages = {
   NOT_AUTHORIZED: "Unauthorized Access Denied",
   INVALID_TOKEN: "Invalid Token",
+  NOT_FOUND: "Not Found",
 };
 export const dummyData = {
   products: [
@@ -212,18 +213,18 @@ export const dummyData = {
     },
   ],
   categories: [
-    { _id: "1", name: "Electronics", parentId: null },
-    { _id: "2", name: "Mobile Phones", parentId: "1" },
-    { _id: "3", name: "Laptops", parentId: "1" },
-    { _id: "4", name: "Tablets", parentId: "1" },
-    { _id: "5", name: "Clothing", parentId: null },
-    { _id: "6", name: "Men's Clothing", parentId: "5" },
-    { _id: "7", name: "Women's Clothing", parentId: "5" },
-    { _id: "8", name: "Kid's Clothing", parentId: "5" },
-    { _id: "9", name: "Books", parentId: null },
-    { _id: "10", name: "Home & Garden", parentId: "9" },
-    { _id: "11", name: "Furniture", parentId: null },
-    { _id: "12", name: "Kitchenware", parentId: null },
-    { _id: "13", name: "Gardening Tools", parentId: null },
+    { name: "Electronics", parentId: null },
+    { name: "Mobile Phones", parentId: null },
+    { name: "Laptops", parentId: null },
+    { name: "Tablets", parentId: null },
+    { name: "Clothing", parentId: null },
+    { name: "Men's Clothing", parentId: null },
+    { name: "Women's Clothing", parentId: null },
+    { name: "Kid's Clothing", parentId: null },
+    { name: "Books", parentId: null },
+    { name: "Home & Garden", parentId: null },
+    { name: "Furniture", parentId: null },
+    { name: "Kitchenware", parentId: null },
+    { name: "Gardening Tools", parentId: null },
   ],
 };

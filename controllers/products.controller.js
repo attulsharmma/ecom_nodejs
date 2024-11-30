@@ -1,8 +1,17 @@
 import Products from "../models/Products.js";
+import APIFeature from "../utils/apiFeatures.js";
 
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await Products.find({});
+    const { page, size } = req.query;
+    const features = new APIFeature(Products.find(), req.query)
+      .filter()
+      .search()
+      .sort()
+      .limitFields()
+      .paginate();
+    const products = await features?.query;
+    // console.log("PRODUCTS", await features?.query);
     res.status(200).json({ status: true, data: products });
   } catch (error) {
     res.status(500).json({ status: false, message: error.message });

@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { messages } from "../constants.js";
 dotenv.config();
 const { AUTH_PASSWORD_SECRET, JWT_SECRET } = process.env;
+
 export const registerUser = async (req, res, next) => {
   const { email, password, username } = req.body;
   const newUser = new User({
@@ -47,11 +48,31 @@ export const loginUser = async (req, res, next) => {
         isAdmin: user.isAdmin,
       },
       JWT_SECRET,
-      { expiresIn: "3d" }
+      { expiresIn: "15m" }
     );
     res
       .status(200)
       .json({ message: "login success", user: rest, token: accessToken });
+  } catch (error) {
+    if (error) {
+      return res.status(500).json({ status: false, message: error.message });
+    }
+  }
+};
+
+export const forgotPassword = async (req, res, next) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(404).json({ message: messages.NOT_FOUND, status: false });
+    } else {
+      await user.generateResetToken();
+      await sendResetEmail(user);
+      res
+        .status(200)
+        .json({ message: "Password reset email sent", status: true });
+    }
   } catch (error) {
     if (error) {
       return res.status(500).json({ status: false, message: error.message });
