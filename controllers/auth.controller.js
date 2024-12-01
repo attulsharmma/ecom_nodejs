@@ -1,17 +1,13 @@
 import User from "../models/User.js";
-import CryptoJS from "crypto-js";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { messages } from "../constants.js";
-dotenv.config();
-const { AUTH_PASSWORD_SECRET, JWT_SECRET } = process.env;
 
+import { messages } from "../constants.js";
 export const registerUser = async (req, res, next) => {
   const { email, password, username } = req.body;
   const newUser = new User({
     username,
     email,
-    password: CryptoJS.AES.encrypt(password, AUTH_PASSWORD_SECRET),
+    password,
   });
   try {
     const savedUser = await newUser.save();
@@ -31,35 +27,33 @@ export const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email }).select("+password");
-    const { password: OriginalPassword, ...rest } = user._doc;
-    !user &&
-      res.status(401).json({ message: messages.NOT_AUTHORIZED, status: false });
-    const hashedPassword = CryptoJS.AES.decrypt(
-      OriginalPassword,
-      AUTH_PASSWORD_SECRET
-    );
-    const passwordDecrypted = hashedPassword.toString(CryptoJS.enc.Utf8);
-    if (passwordDecrypted !== password) {
-      res.status(401).json({ message: messages.NOT_AUTHORIZED, status: false });
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: messages.USER_NOT_FOUND, status: false });
+    }
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ message: "Invalid credentials", status: false });
     }
     const accessToken = jwt.sign(
       {
         id: user._id,
         isAdmin: user.isAdmin,
       },
-      JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: "15m" }
     );
+    const { password: oPass, ...rest } = user._doc;
     res
       .status(200)
-      .json({ message: "login success", user: rest, token: accessToken });
+      .json({ message: "Login successful", user: rest, token: accessToken });
   } catch (error) {
-    if (error) {
-      return res.status(500).json({ status: false, message: error.message });
-    }
+    return res.status(500).json({ status: false, message: error.message });
   }
 };
-
 export const forgotPassword = async (req, res, next) => {
   const { email } = req.body;
   try {
@@ -68,10 +62,39 @@ export const forgotPassword = async (req, res, next) => {
       res.status(404).json({ message: messages.NOT_FOUND, status: false });
     } else {
       await user.generateResetToken();
-      await sendResetEmail(user);
-      res
-        .status(200)
-        .json({ message: "Password reset email sent", status: true });
+      // await sendResetEmail(user);
+      res.status(200).json({
+        message: "Password reset email sent",
+        status: true,
+        token: user.resetPasswordToken,
+      });
+    }
+  } catch (error) {
+    if (error) {
+      return res.status(500).json({ status: false, message: error.message });
+    }
+  }
+};
+export const resetPassword = async (req, res, next) => {
+  const { token } = req.params;
+  const { password, email } = req.body;
+  try {
+    const user = await User.findOne({
+      email,
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+    if (!user) {
+      res.status(401).json({ message: messages.INVALID_TOKEN, status: false });
+    } else {
+      user.password = password;
+      user.resetPasswordExpires = undefined;
+      user.resetPasswordToken = undefined;
+      await user.save();
+      res.status(200).json({
+        message: "Password reset successfully",
+        status: true,
+      });
     }
   } catch (error) {
     if (error) {

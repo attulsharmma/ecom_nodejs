@@ -2,6 +2,7 @@ export const messages = {
   NOT_AUTHORIZED: "Unauthorized Access Denied",
   INVALID_TOKEN: "Invalid Token",
   NOT_FOUND: "Not Found",
+  USER_NOT_FOUND: "User Not Found",
 };
 export const dummyData = {
   products: [
