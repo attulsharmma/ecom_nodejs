@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import authRouter from "./routes/auth.js";
 import productRouter from "./routes/products.js";
 import categoriesRouter from "./routes/categories.js";
+import cartRouter from "./routes/cart.js";
 
 const app = express();
 // var jsonParser = bodyParser.json()
@@ -32,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/ecom/api/v1/", authRouter);
 app.use("/ecom/api/v1/", productRouter);
 app.use("/ecom/api/v1/", categoriesRouter);
+app.use("/ecom/api/v1/", cartRouter);
 
 //SERVER RUNNING
 app.listen(PORT || 3000, () =>
