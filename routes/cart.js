@@ -1,14 +1,23 @@
 import { Router } from "express";
-import { addNewCartiItem } from "../controllers/cart.controller.js";
+import {
+  addNewCartItem,
+  deleteCartItem,
+  viewCartItem,
+} from "../controllers/cart.controller.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 import { extractUserId } from "../middlewares/extractUserId.js";
 
 const cartRouter = Router();
 
-// cartRouter.get("/getAllCategories", verifyToken, getAllCategories);
-// cartRouter.get("/getCategoryById", verifyToken, getSingleCategory);
-cartRouter.post("/addCartItems", verifyToken, extractUserId, addNewCartiItem);
-// cartRouter.put("/updateCategory", verifyToken, updateCategory);
-// cartRouter.put("/deleteCategory", verifyToken, deleteCategory);
+cartRouter.get("/getAllCartItems", verifyToken, extractUserId, viewCartItem);
+
+cartRouter.post("/addCartItems", verifyToken, extractUserId, addNewCartItem);
+
+cartRouter.delete(
+  "/deleteCartItem",
+  verifyToken,
+  extractUserId,
+  deleteCartItem
+);
 
 export default cartRouter;
