@@ -1,11 +1,11 @@
 1.  Authorization
   -Register
   -Login
-  -Forgot Password - WIP
+  -Forgot Password - Mail Pending
   -Reset Password
-  -Send Mail on Registration
-  -Send Mail on Login
-  -View and Update Profile
+  -Send Mail on Registration - Pending
+  -Send Mail on Login - Pending
+  -View and Update Profile 
   -JWT (after Pagination,Filtering and Sorting)
 2.  Products - Complete
    -Get All
@@ -22,9 +22,9 @@
 4.  Pagination - Complete
 5.  Filter - Single and Multiple - Complete
 6.  Sorting - Complete
-7.  Image/Video Updoad
-8.  Shopping Cart
-9.  Coupons
+7.  Image/Video Upload
+8.  Shopping Cart - Complete
+9.  Coupons - WIP
 10. Checkout
 11. Payment Gateway Integration
 12. Mail on Successfull Order
